@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rgb_pattern/ui/pages/widgets/widgets.dart';
 
 
-import '../login.dart';
+import '../login/login.dart';
 
 class ContentLoginPage extends StatelessWidget {
   final LoginPresenter presenter;
