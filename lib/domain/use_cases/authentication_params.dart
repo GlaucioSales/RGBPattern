@@ -11,8 +11,5 @@ class AuthenticationParams extends Equatable{
   });
 
   @override
-  List<Object> get props => [
-    email,
-    secret
-  ];
+  List<Object> get props => [ email, secret ];
 }

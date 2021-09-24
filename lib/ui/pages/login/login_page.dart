@@ -7,7 +7,7 @@ import '../widgets/widgets.dart';
 class LoginPage extends StatelessWidget {
   final LoginPresenter presenter;
 
-  LoginPage(this.presenter);
+  LoginPage({@required this.presenter});
 
   @override
   Widget build(BuildContext context) {

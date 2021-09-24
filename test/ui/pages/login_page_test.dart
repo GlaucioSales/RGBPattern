@@ -49,7 +49,7 @@ void main() {
     presenter = LoginPresenterMock();
     initStreams();
     mockStreams();
-    MaterialApp loginPage = MaterialApp(home: LoginPage(presenter));
+    MaterialApp loginPage = MaterialApp(home: LoginPage(presenter: presenter));
     await tester.pumpWidget(loginPage);
   }
 
