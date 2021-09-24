@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
+import 'package:rgb_pattern/domain/errors/errors.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 import '../protocols/protocols.dart';
@@ -9,6 +11,7 @@ class LoginState {
   String password;
   String emailError;
   String passwordError;
+  String mainError;
   bool isLoading = false;
 
   bool get isFormValid =>
@@ -30,6 +33,8 @@ class StreamLoginPresenter{
       _controller.stream.map((state) => state.emailError).distinct();
   Stream<String> get passwordErrorStream =>
       _controller.stream.map((state) => state.passwordError).distinct();
+  Stream<String> get mainErrorStream =>
+      _controller.stream.map((state) => state.mainError).distinct();
   Stream<bool> get isFormValidStream =>
       _controller.stream.map((state) => state.isFormValid).distinct();
   Stream<bool> get isLoadingStream =>
@@ -51,7 +56,12 @@ class StreamLoginPresenter{
   Future<void> auth() async {
     _state.isLoading = true;
     update();
-    await authentication.auth(AuthenticationParams(email: _state.email, secret: _state.password));
+    try{
+      await authentication.auth(AuthenticationParams(email: _state.email, secret: _state.password));
+    }on DomainError catch (error) {
+      _state.mainError = error.description;
+      update();
+    }
     _state.isLoading = false;
     update();
   }
