@@ -11,8 +11,9 @@ class ValidationComposit implements Validation{
   ValidationComposit({@required this.validations});
 
   String validate({@required String field, @required String value}) {
+    print(validations.length);
     String error;
-    for (final validation in validations) {
+    for (final validation in validations.where((element) => element.field == field )) {
       error = validation.validate(value);
       if(error?.isNotEmpty == true) return error;
     }
@@ -54,7 +55,7 @@ void main(){
     when(validation2.field).thenReturn('other_field');
     mockValidation2(null);
 
-    sut = ValidationComposit(validations: [validation, validation1]);
+    sut = ValidationComposit(validations: [validation, validation1, validation2]);
   });
 
   test('Should return null if all validations returns null or empty', () {
@@ -73,5 +74,15 @@ void main(){
     final error = sut.validate(field:'any_field', value:'any_value');
 
     expect(error, 'error');
+  });
+
+  test('Should return the first error of the field', () {
+    mockValidation('error');
+    mockValidation1('error1');
+    mockValidation2('error2');
+
+    final error = sut.validate(field:'other_field', value:'any_value');
+
+    expect(error, 'error2');
   });
 }
