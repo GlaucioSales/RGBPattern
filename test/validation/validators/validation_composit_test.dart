@@ -21,20 +21,30 @@ void main(){
   ValidationComposit sut;
   FieldValidationMock validation;
   FieldValidationMock validation1;
+  FieldValidationMock validation2;
+
+  void mockValidation(String error){
+    when(validation.field).thenReturn('any_field');
+    when(validation.validate(any)).thenReturn(error);
+
+    when(validation.field).thenReturn('any_field');
+    when(validation.validate(any)).thenReturn(error);
+
+    when(validation.field).thenReturn('other_field');
+    when(validation.validate(any)).thenReturn(error);
+  }
 
   setUp(() {
     validation = FieldValidationMock();
     validation1 = FieldValidationMock();
+    validation2 = FieldValidationMock();
 
     sut = ValidationComposit(validations: [validation, validation1]);
   });
 
   test('Should retunr null if all validations returns null or empty', () {
-    when(validation.field).thenReturn(null);
-    when(validation.field).thenReturn('');
-
-    when(validation1.field).thenReturn(null);
-    when(validation1.field).thenReturn('');
+    mockValidation('');
+    mockValidation(null);
 
     final error = sut.validate(field:'any_field', value:'any_value');
 
