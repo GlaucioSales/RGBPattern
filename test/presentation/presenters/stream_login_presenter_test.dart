@@ -1,11 +1,12 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
+
 import 'package:rgb_pattern/domain/entities/entities.dart';
-import 'package:rgb_pattern/domain/errors/domain_error.dart';
-import 'package:rgb_pattern/domain/use_cases/authentication.dart';
+import 'package:rgb_pattern/domain/errors/errors.dart';
 import 'package:rgb_pattern/domain/use_cases/use_cases.dart';
 import 'package:rgb_pattern/presentation/presenter/presenter.dart';
-import 'package:rgb_pattern/presentation/protocols/validation.dart';
+import 'package:rgb_pattern/presentation/protocols/protocols.dart';
+
 import 'package:test/test.dart';
 
 
@@ -143,6 +144,17 @@ void main() {
         expect(error,  'Credentials invalid.')));
 
     await sut.auth();
+  });
 
+    test('Should emit corrects events if UnexpectedError', () async {
+    mockAuthenticationError(DomainError.unexpected);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+
+    expectLater(sut.isLoadingStream, emits(false));
+    sut.mainErrorStream.listen(expectAsync1((error) =>  
+        expect(error,  'There is a erro, try again later.')));
+
+    await sut.auth();
   });
 }
