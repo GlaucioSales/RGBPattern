@@ -1,31 +1,13 @@
 import 'package:mockito/mockito.dart';
-import 'package:rgb_pattern/validation/protocols/protocols.dart';
 import 'package:test/test.dart';
-import 'package:meta/meta.dart';
 
-import 'package:rgb_pattern/presentation/protocols/protocols.dart';
-
-class ValidationComposit implements Validation{
-  final List<FieldValidation> validations;
-
-  ValidationComposit({@required this.validations});
-
-  String validate({@required String field, @required String value}) {
-    print(validations.length);
-    String error;
-    for (final validation in validations.where((element) => element.field == field )) {
-      error = validation.validate(value);
-      if(error?.isNotEmpty == true) return error;
-    }
-    return error;
-  }
-
-}
+import 'package:rgb_pattern/validation/protocols/protocols.dart';
+import 'package:rgb_pattern/validation/validators/validators.dart';
 
 class FieldValidationMock extends Mock implements FieldValidation {}
 
 void main(){
-  ValidationComposit sut;
+  Validationcomposite sut;
   FieldValidationMock validation;
   FieldValidationMock validation1;
   FieldValidationMock validation2;
@@ -55,7 +37,7 @@ void main(){
     when(validation2.field).thenReturn('other_field');
     mockValidation2(null);
 
-    sut = ValidationComposit(validations: [validation, validation1, validation2]);
+    sut = Validationcomposite(validations: [validation, validation1, validation2]);
   });
 
   test('Should return null if all validations returns null or empty', () {
