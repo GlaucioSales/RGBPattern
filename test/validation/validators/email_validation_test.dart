@@ -9,7 +9,16 @@ class EmailValidation implements FieldValidation{
   EmailValidation(this.field);
 
   String validate(String value) {
-    return null;
+     Pattern pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = new RegExp(pattern);
+    
+    if ( value?.isNotEmpty != true || regex.hasMatch(value))
+      return null;
+    else
+      return 'Enter a valid email address.';
   }
 }
 
@@ -32,9 +41,15 @@ void main(){
     expect(error, null);
   });
 
-    test('Should return null if email is valid', () {
+  test('Should return null if email is valid', () {
     final error = sut.validate(faker.internet.email());
     
     expect(error, null);
+  });
+
+  test('Should return error if email is invalid', () {
+    final error = sut.validate(faker.person.name());
+    
+    expect(error, 'Enter a valid email address.');
   });
 }
