@@ -7,7 +7,7 @@ import 'package:rgb_pattern/validation/validators/validators.dart';
 class FieldValidationMock extends Mock implements FieldValidation {}
 
 void main(){
-  Validationcomposite sut;
+  ValidationComposite sut;
   FieldValidationMock validation;
   FieldValidationMock validation1;
   FieldValidationMock validation2;
@@ -37,7 +37,7 @@ void main(){
     when(validation2.field).thenReturn('other_field');
     mockValidation2(null);
 
-    sut = Validationcomposite(validations: [validation, validation1, validation2]);
+    sut = ValidationComposite(validations: [validation, validation1, validation2]);
   });
 
   test('Should return null if all validations returns null or empty', () {

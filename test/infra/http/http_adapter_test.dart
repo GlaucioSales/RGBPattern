@@ -15,7 +15,7 @@ main() {
   Map<String, String> headers;
   setUp(() {
     client = ClientMock();
-    sut = HttpAdapter(client);
+    sut = HttpAdapter(client: client);
     url = faker.internet.httpUrl();
     headers = {
       'content-type': 'application/json',

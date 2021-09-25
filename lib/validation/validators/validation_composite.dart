@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 import '../../presentation/protocols/protocols.dart';
 import '../protocols/protocols.dart';
 
-class Validationcomposite implements Validation{
+class ValidationComposite implements Validation{
   final List<FieldValidation> validations;
 
-  Validationcomposite({@required this.validations});
+  ValidationComposite({@required this.validations});
 
   String validate({@required String field, @required String value}) {
     print(validations.length);
