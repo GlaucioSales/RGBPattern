@@ -9,8 +9,6 @@ import 'package:rgb_pattern/presentation/protocols/protocols.dart';
 
 import 'package:test/test.dart';
 
-
-
 class MockValidation extends Mock implements Validation {}
 class MockAuthentication extends Mock implements Authentication {}
 
@@ -146,7 +144,7 @@ void main() {
     await sut.auth();
   });
 
-    test('Should emit corrects events if UnexpectedError', () async {
+  test('Should emit corrects events if UnexpectedError', () async {
     mockAuthenticationError(DomainError.unexpected);
     sut.validateEmail(email);
     sut.validatePassword(password);
@@ -156,5 +154,13 @@ void main() {
         expect(error,  'There is a erro, try again later.')));
 
     await sut.auth();
+  });
+
+  test('Should not emit event after disposed', () async {
+    expect(sut.emailErrorStream, neverEmits(null));
+    
+    sut.dispose();
+
+    sut.validateEmail(email);
   });
 }
