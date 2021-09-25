@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:rgb_pattern/domain/errors/errors.dart';
+import 'package:rgb_pattern/ui/pages/login/login.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 import '../protocols/protocols.dart';
@@ -19,7 +19,7 @@ class LoginState {
     email != null && password != null ;
 }
 
-class StreamLoginPresenter{
+class StreamLoginPresenter extends LoginPresenter{
   final Validation validation;
   final Authentication authentication;
   var _state = LoginState();
@@ -60,7 +60,6 @@ class StreamLoginPresenter{
       await authentication.auth(AuthenticationParams(email: _state.email, secret: _state.password));
     }on DomainError catch (error) {
       _state.mainError = error.description;
-      update();
     }
     _state.isLoading = false;
     update();
