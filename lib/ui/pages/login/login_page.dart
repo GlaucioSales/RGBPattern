@@ -3,7 +3,6 @@ import 'login_presenter.dart';
 
 import '../widgets/widgets.dart';
 
-
 class LoginPage extends StatelessWidget {
   final LoginPresenter presenter;
 

@@ -6,3 +6,5 @@ export 'login_with_social.dart';
 export 'sign_up_and_forget_password.dart';
 export 'sign_in_login.dart';
 export 'text_welcome_back.dart';
+export 'options.dart';
+export 'question.dart';

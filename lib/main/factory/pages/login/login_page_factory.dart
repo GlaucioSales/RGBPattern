@@ -10,7 +10,7 @@ import '../../../../ui/pages/login/login.dart';
 Widget loginPageFactory (){
   return LoginPage(presenter: StreamLoginPresenter(
     authentication: RemoteAuthentication(
-      url: "http://fordevs.herokuapp.com/api/login",
+      url: "https://fordevs.herokuapp.com/api/login",
       httpClient: HttpAdapter(
         client: Client()
       ),

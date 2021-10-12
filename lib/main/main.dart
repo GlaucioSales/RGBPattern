@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../main/factory/pages/login/login_page_factory.dart';
-import '../main/factory/pages/home/home_page_factory.dart';
+import 'factory/pages/login/login_page_factory.dart';
+import 'factory/pages/home/home_page_factory.dart';
+import 'factory/pages/game/game_page_factory.dart';
 
 import '../ui/components/components.dart';
 
@@ -17,17 +18,18 @@ class App extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
     return GetMaterialApp(
-      title: "Project Pattern",
+      title: "RGB Pattern",
 
       debugShowCheckedModeBanner: false,
 
       theme: customAppTheme(),
 
-      initialRoute: "/login",
+      initialRoute: "/home",
             
       getPages: [
         GetPage(name: "/login", page: loginPageFactory),
         GetPage(name: "/home", page: homePageFactory),
+        GetPage(name: "/game", page: gamePageFactory),
       ],
 
     );
